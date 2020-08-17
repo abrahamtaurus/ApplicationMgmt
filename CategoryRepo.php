@@ -23,5 +23,5 @@ include_once "DbConnection.php";
         DbConnection::closeConnection($this->dbCon);
     }
 
-}
+    }
 ?>
