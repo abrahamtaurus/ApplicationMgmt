@@ -1,21 +1,22 @@
 <?php
 include_once "Role.php";
-#include_once "Rolesvc.php";
+include_once "RoleSvc.php";
 
 class RoleCtl
 {
     private $vobjApplSvc;
-    function __construct()
+    private $applData;
+    public function __construct()
     {
-        //$this->vobjApplSvc = new RoleSvc();        
+        $this->vobjApplSvc = new RoleSvc();        
     }
     public function doPost()
     {
-       //$vjsonRole = json_decode($_POST['applData']);
-        $vjsonRole = json_decode(file_get_contents('php://input'));
-        //var_dump($vjsonRole,true);
-        $vobjRole = new Role($vjsonRole->id, $vjsonRole->name);
+       // $vjsonrole = json_decode($_POST['applData']);
+        $vjsonrole = json_decode(file_get_contents('php://input'));
         
+        $vobjRole = new Role($vjsonrole->id, $vjsonrole->rolename);
+        $vobjRole = $this->vobjApplSvc->save($vobjRole);
         echo $vobjRole->toJSON();
     
     }    
@@ -24,3 +25,6 @@ class RoleCtl
 $appl = new RoleCtl();
 $appl->doPost();                                                    
 ?>
+
+
+

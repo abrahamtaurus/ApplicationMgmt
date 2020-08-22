@@ -1,35 +1,38 @@
+
+
 <?php
+class Category {
+  private $id;
+  private $name;
+  
 
+  public function __construct($pid, $pname)
+  {
+	$this->id = $pid;
+	$this->name = $pname;
+	
+  }
+  
+  public function setId($pid)
+  {
+	$this->id = $pid;
+  }
 
-class Category{
-    private $id; 
-    private $name;
-    private $shortName;
-    
-    
-    function __construct($pid, $pname, $pshortName)
-    {
-        $this->setId($pid);
-        $this->setName($pname);
-        $this->setShortName($pshortName);
-        
-    }
-
-    public function setId($pid){
-        $this->id = $pid;
-    } 
-    
-    public function setName($pname){
-        $this->name = $pname;
-        
-    }
-    public function setShortName($pshortName){
-        $this->shortName = $pshortName;
-        
-    }
-    
-    public function toJSON(){
-        return json_encode("{id: $this->id, name:$this->name, shortName: $this->shortName}");
-    }
+  public function getId(){
+    return $this->id;
+  }
+  
+ public function setname($pname)  {
+    $this->name = $pname;
+  }
+  
+  public function getname()  {
+    return $this->name;
+  }
+  
+  public function toJSON()
+  {
+        return json_encode("{id: $this->id, name:$this->name}");
+  }
 }
 ?>

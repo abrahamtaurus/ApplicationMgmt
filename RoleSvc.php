@@ -1,19 +1,31 @@
 <?php
-include "Role.php";
+include_once "Role.php";
 include_once "RoleRepo.php";
-class Rolesvc
+class RoleSvc
 {
-	private $rolerepo;
+	private $roleRepo;
 	public function __construct()
     {
-		$this->rolerepo = new RoleRepo();
+		$this->roleRepo = new RoleRepo();
 	}
-	public function save($pobjrole){
-		if($pobjapplication->getId()==-1)
+	public function save($pobjRole){
+		$vobjRole = $pobjRole;
+        if($pobjRole->getId()==-1)
         {
-			$this->insert($pobjrole);
-	     }
-      }
+			$vobjRole= $this->roleRepo->insert($pobjRole);
+		}
+		else
+		{
+			$vobjRole = $this->roleRepo->update($pobjRole);
+		}	  
+		return $vobjRole;
+	  }
+	  
+	  
+	  public function delete($pobjRole){
+		$this->roleRepo->delete($pobjRole);
+	  }
+	  
 }
 
 ?> 

@@ -1,26 +1,38 @@
-<?php
 
+
+<?php
 class Role {
   private $id;
-  private $name;
+  private $rolename;
   
-  public function __construct($pid, $pname){
+
+  public function __construct($pid, $prolename)
+  {
 	$this->id = $pid;
-	$this->name = $pname;
+	$this->rolename = $prolename;
 	
   }
-    public function setId($pid){
+  
+  public function setId($pid)
+  {
 	$this->id = $pid;
   }
-  
- public function setName($pname){
-	$this->name = $pname;
+
+  public function getId(){
+    return $this->id;
   }
   
+ public function setrolename($prolename)  {
+    $this->rolename = $prolename;
+  }
   
-   
-  public function toJSON(){
-        return json_encode("{id: $this->id, name:$this->name}");
-    }
+  public function getrolename()  {
+    return $this->rolename;
+  }
+  
+  public function toJSON()
+  {
+        return json_encode("{id: $this->id, rolename:$this->rolename}");
+  }
 }
 ?>
