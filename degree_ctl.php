@@ -1,23 +1,30 @@
 <?php
-include_once "degree.php";
-#include_once "degree_svc.php";
+/**
+*Author : Anusha DSouza
+*Purpose : 
+*Date : 24/08/2020
+**/
+include_once "Degree.php";
+include_once "DegreeSvc.php";
 
-class degree_ctl
+class DegreeCtl
 {
-    private $vobjdegree_svc;
+    private $vobjDegSvc;
+	private $degData;
     public function __construct()
     {
-        //$this->vobjDegSvc = new DegreeSvc();        
+        $this->vobjDegSvc = new DegreeSvc();        
     }
     public function doPost()
     {
        // $vjsonDegree = json_decode($_POST['degData']);
         $vjsondegree = json_decode(file_get_contents('php://input'));
-        $vobjdegree = new Degree($vjsondegree->id, $vjsondegree->name);
-        echo $vobjdegree->toJSON();
+        $vobjDegree = new Degree($vjsondegree->id, $vjsondegree->name);
+		$vobjdegree = $this->vobjDegSvc->save($vobjDegree);
+        echo $vobjDegree->toJSON();
     }    
     //$this->vobjDegSvc->save($vjsonDegree);  
 }
-$degree = new degree_ctl();
-$degree->doPost();                                                    
+$deg = new DegreeCtl();
+$deg->doPost();                                                    
 ?>
