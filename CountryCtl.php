@@ -1,30 +1,35 @@
+/**
+* Author:Hima Gopal
+* Purpose:
+* Date:23/08/2020
+*/
 <?php
 include_once "Country.php";
-#include_once "CountrySvc.php";
+include_once "CountrySvc.php";
 
 class CountryCtl
 {
     private $vobjApplSvc;
+    private $applData;
     public function __construct()
     {
-        //$this->vobjApplSvc = new ApplicationSvc();        
+        $this->vobjApplSvc = new CountrySvc();        
     }
     public function doPost()
     {
-       // $vjsonApplication = json_decode($_POST['applData']);
+       // $vjsonapplication = json_decode($_POST['applData']);
         $vjsoncountry = json_decode(file_get_contents('php://input'));
         
-        $vobjcountry = new Country($vjsoncountry->id, $vjsoncountry->country_name, $vjsoncountry->host);
-        
-        echo $vobjcountry->toJSON();
+        $vobjCountry = new Country($vjsoncountry->id, $vjsoncountry->name, $vjsoncountry->host);
+        $vobjCountry = $this->vobjApplSvc->save($vobjCountry);
+        echo $vobjCountry->toJSON();
     
     }    
-    //$this->vobjApplSvc->save($vjsonApplication);  
+    //$this->vobjApplSvc->save($vjsonapplication);  
 }
 $appl = new CountryCtl();
 $appl->doPost();                                                    
 ?>
-
 
 
 
