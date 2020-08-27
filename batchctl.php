@@ -1,27 +1,32 @@
+/**
+*Author:Sushumna S Pradeep
+*Purpose:
+*Date:23/08/2020  
+*/
 <?php
-include_once "batch.php";
-#include_once "batchsvc.php";
+include_once "Batch.php";
+include_once "BatchSvc.php";
 
-
-class batchctl
+class BatchCtl
 {
     private $vobjApplSvc;
-    function __construct()
+    private $applData;
+    public function __construct()
     {
-        //$this->vobjApplSvc = new CandidateSvc();        
+        $this->vobjApplSvc = new BatchSvc();        
     }
     public function doPost()
     {
-       // $vjsonCandidate = json_decode($_POST['applData']);
+       // $vjsonBatch = json_decode($_POST['applData']);
         $vjsonbatch = json_decode(file_get_contents('php://input'));
-        var_dump($vjsonbatch);
-        $vobjbatch = new batch($vjsonbatch->id,$vjsonbatch->course_id, $vjsonbatch->year_2, $vjsonbatch->is_open);
         
-        echo $vobjbatch->toJSON();
+        $vobjBatch = new Batch($vjsonbatch->id, $vjsonbatch->course_id, $vjsonbatch->year_2, $vjsonbatch->is_open);
+        $vobjBatch = $this->vobjApplSvc->save($vobjBatch);
+        echo $vobjBatch->toJSON();
     
     }    
-    //$this->vobjApplSvc->save($vjsonCandidate);  
+    //$this->vobjApplSvc->save($vjsonBatch);  
 }
-$appl = new batchctl();
+$appl = new BatchCtl();
 $appl->doPost();                                                    
 ?>
