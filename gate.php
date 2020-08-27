@@ -1,63 +1,88 @@
+/**
+*Author:Sushumna S Pradeep
+*Purpose:
+*Date:23/08/2020  
+*/
 <?php
 //Model or dto
-include 'dbConnection.php';
-class gate {
+class Gate {
 private $id;
 private $examDate;
-private $discipline;
+private $Discipline;
 private $score;
 private $percentile;
-private $air;
+private $AIR;
 private $validity;
 
-public function __construct($pid, $pexamDate, $pdiscipline, $pscore,$percentile,$pair,$pvalidity)
+public function __construct($pid, $pexamDate, $pDiscipline, $pscore,$percentile,$pAIR,$pvalidity)
 {
 $this->setid($pid);
 $this->setexamDate($pexamDate);
-$this->setdiscipline($pdiscipline);
+$this->setDiscipline($pDiscipline);
 $this->setscore($pscore);
 $this->setpercentile($percentile);
-$this->setair($pair);
+$this->setAIR($pAIR);
 $this->setvalidity($pvalidity);
 
  }
  
- public function setid($pid)
+ public function setId($pid)
   {
     $this->id = $pid;
+  }
+  public function getId(){
+    return $this->id;
   }
 
   public function setexamDate($pexamDate)
   {
     $this->examDate = $pexamDate;
   }
+  public function getexamDate(){
+    return $this->examDate;
+  }
  
-  public function setdiscipline($pdiscipline)
+  public function setDiscipline($pDiscipline)
   {
-    $this->discipline = $pdiscipline;
+    $this->Discipline = $pDiscipline;
+  }
+  public function getDiscipline(){
+    return $this->Discipline;
   }
   
   public function setscore($pscore)
   {
     $this->score = $pscore;
   }
+  public function getscore(){
+    return $this->score;
+  }
   
   public function setpercentile($ppercentile)
   {
     $this->percentile = $ppercentile;
   }
-  public function setair($pair)
+  public function getpercentile(){
+    return $this->percentile;
+  }
+  public function setAIR($pAIR)
   {
-    $this->air = $pair;
+    $this->AIR = $pAIR;
+  }
+  public function getAIR(){
+    return $this->AIR;
   }
   
   public function setvalidity($pvalidity)
   {
     $this->validity = $pvalidity;
   }
+  public function getvalidity(){
+    return $this->validity;
+  }
   public function toJSON()
     {
-        return json_encode("{id: $this->id, examedate:$this->examDate, discipline: $this->discipline,score:$this->score,percentile:$this->percentile,air:$this->air,validity:$this->validity");
+        return json_encode("{id: $this->id, examedate:$this->examDate, Discipline: $this->Discipline,score:$this->score,percentile:$this->percentile,AIR:$this->AIR,validity:$this->validity");
     }
   
 }
