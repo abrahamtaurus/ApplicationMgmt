@@ -1,20 +1,36 @@
+/**
+*Author:Sushumna S Pradeep
+*Purpose:
+*Date:23/08/2020  
+*/
 <?php
-include 'course.php';
-
-class coursesvc
+include_once "Course.php";
+include_once "CourseRepo.php";
+class CourseSvc
 {
-    public $objRepo;
+	private $courseRepo;
 	public function __construct()
-	{
-        $this->objRepo = new courserepo();
-    }
-	public function save($pobjcourse)
-	{
-		if($pobjcourse->getid()==-1)
-		{
-			$this->objRepo->insert($pobjcourse);
+    {
+		$this->courseRepo = new CourseRepo();
+	}
+	public function save($pobjCourse){
+		$vobjCourse = $pobjCourse;
+        if($pobjCourse->getId()==-1)
+        {
+			$vobjCourse = $this->courseRepo->insert($pobjCourse);
 		}
-    }
+		else
+		{
+			$vobjCourse = $this->courseRepo->update($pobjCourse);
+		}	  
+		return $vobjCourse;
+	  }
+	  
+	  
+	  public function delete($pobjCourse){
+		$this->courseRepo->delete($pobjCourse);
+	  }
+	  
 }
 
-?>
+?> 
