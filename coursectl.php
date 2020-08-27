@@ -1,26 +1,32 @@
+/**
+*Author:Sushumna S Pradeep
+*Purpose:
+*Date:23/08/2020  
+*/
 <?php
-include_once "course.php";
-#include_once "gatesvc.php";
+include_once "Course.php";
+include_once "CourseSvc.php";
 
-class coursectl
+class CourseCtl
 {
     private $vobjApplSvc;
-    function __construct()
+    private $applData;
+    public function __construct()
     {
-        //$this->vobjApplSvc = new CandidateSvc();        
+        $this->vobjApplSvc = new CourseSvc();        
     }
     public function doPost()
     {
-       // $vjsonCandidate = json_decode($_POST['applData']);
+       // $vjsonCourse = json_decode($_POST['applData']);
         $vjsoncourse = json_decode(file_get_contents('php://input'));
-        var_dump($vjsoncourse);
-        $vobjcourse = new course ($vjsoncourse->id, $vjsoncourse->course_name, $vjsoncourse->is_active);
         
-        echo $vobjcourse->toJSON();
+        $vobjCourse = new Course($vjsoncourse->id, $vjsoncourse->course_name, $vjsoncourse->is_active);
+        $vobjCourse = $this->vobjApplSvc->save($vobjCourse);
+        echo $vobjCourse->toJSON();
     
     }    
-    //$this->vobjApplSvc->save($vjsonCandidate);  
+    //$this->vobjApplSvc->save($vjsonCourse);  
 }
-$appl = new coursectl();
+$appl = new CourseCtl();
 $appl->doPost();                                                    
 ?>
