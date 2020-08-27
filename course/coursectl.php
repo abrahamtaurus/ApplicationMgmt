@@ -1,16 +1,17 @@
 <?php
-include_once "course.php";
-#include_once "gatesvc.php";
 
-class coursectl
-{
-    private $vobjApplSvc;
-    function __construct()
-    {
-        //$this->vobjApplSvc = new CandidateSvc();        
+include_once "Course.php";
+include_once "CourseSvc.php";
+
+class CourseCtl {
+    
+    private $objCourseSvc;
+    
+    function __construct(){
+        $this->objCourseSvc = new CourseSvc();        
     }
-    public function doPost()
-    {
+    
+    public function doPost(){
        // $vjsonCandidate = json_decode($_POST['applData']);
         $vjsoncourse = json_decode(file_get_contents('php://input'));
         var_dump($vjsoncourse);
@@ -19,8 +20,28 @@ class coursectl
         echo $vobjcourse->toJSON();
     
     }    
-    //$this->vobjApplSvc->save($vjsonCandidate);  
+    
+    /*
+    *   Serve the HTTP GET requests 
+    *   Request to return detials of single or multiple Courses   
+    */
+    public function doGet(){
+        $vobjCourse;
+        
+        if(count($_GET)>0)
+            $vobjCourse = $this->objCourseSvc->getById($_GET['id']);
+        else
+            $vobjCourse = $this->objCourseSvc->getAllAsJSON();
+        
+        echo $vobjCourse->toJSON();
+    }    
 }
-$appl = new coursectl();
-$appl->doPost();                                                    
+
+$appl = new CourseCtl();
+
+if($_SERVER['REQUEST_METHOD'] === 'POST') 
+     $appl->doPost();
+else
+     $appl->doGet();
+                                                    
 ?>
