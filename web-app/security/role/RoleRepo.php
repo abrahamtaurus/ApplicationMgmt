@@ -1,6 +1,7 @@
 <?php
 include_once 'Role.php';
-include_once  "../core/dBConnection.php";
+include_once  "../../core/dbConnection.php";
+
 class RoleRepo
 {
     private $dbCon;
@@ -17,7 +18,7 @@ class RoleRepo
         //$stmt->close();
 		return $vobjRole;
     }
-    
+
     public function update($pobjRole){
         $strSQLStmt="UPDATE tbl_role SET role_name=? WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
@@ -27,7 +28,7 @@ class RoleRepo
     }
 
     public function delete($pobjRole){
-        $strSQLStart="UPDATE tbl_role SET is_deleted=1 WHERE id=?"; 
+        $strSQLStart="UPDATE tbl_role SET is_deleted=1 WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
         $stmt->execute([$pobjRole->getId()]);
        // $stmt->close();
@@ -35,9 +36,9 @@ class RoleRepo
         return $pobjRole;
     }
 
-    function __destruct() 
+    function __destruct()
     {
         //dbConnection::closeConnection($this->dbCon);
-    }  
-} 
+    }
+}
 ?>
