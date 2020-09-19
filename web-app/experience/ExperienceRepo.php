@@ -5,7 +5,7 @@ class ExperienceRepo
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjexperience) 
     {
@@ -18,7 +18,7 @@ class ExperienceRepo
     }
     function __destruct() 
     {
-        dbConnection::closeConnection($this->dbCon);
+        DbConnection::closeConnection($this->dbCon);
     }  
 } 
 ?>

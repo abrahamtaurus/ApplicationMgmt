@@ -1,6 +1,6 @@
 <?php
 //Model or dto
-include 'dbConnection.php';
+include 'DbConnection.php';
 class gate {
 private $id;
 private $examDate;

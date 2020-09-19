@@ -5,13 +5,13 @@
 */
 <?php
 include_once 'Application.php';
-include_once  "../core/dBConnection.php";
+include_once  $_SERVER['DOCUMENT_ROOT'] . "/web-app/core/DbConnection.php";
 class ApplicationRepo
 {
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjApplication){
 		$vobjApplication = $pobjApplication;
@@ -22,7 +22,7 @@ class ApplicationRepo
         //$stmt->close();
 		return $vobjApplication;
     }
-    
+
     public function update($pobjApplication){
         $strSQLStmt="UPDATE tbl_application SET appl_no=?, submission_date=?, appl_status=? WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
@@ -32,7 +32,7 @@ class ApplicationRepo
     }
 
     public function delete($pobjApplication){
-        $strSQLStart="UPDATE tbl_application SET is_deleted=1 WHERE id=?"; 
+        $strSQLStart="UPDATE tbl_application SET is_deleted=1 WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
         $stmt->execute([$pobjApplication->getId()]);
        // $stmt->close();
@@ -40,9 +40,9 @@ class ApplicationRepo
         return $pobjApplication;
     }
 
-    function __destruct() 
+    function __destruct()
     {
-        //dbConnection::closeConnection($this->dbCon);
-    }  
-} 
+        //DbConnection::closeConnection($this->dbCon);
+    }
+}
 ?>

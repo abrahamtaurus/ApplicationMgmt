@@ -7,7 +7,7 @@ Class batchrepo
         
     function __construct()
     {
-        $this->dbConn = DBConnection::getConnection();
+        $this->dbConn = DbConnection::getConnection();
     }
     public function insert($pobjbatch)
     {

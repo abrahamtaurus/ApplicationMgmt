@@ -5,29 +5,32 @@ include_once "LoginSvc.php";
 class LoginCtl{
     private $objLoginSvc;
 
-    public function __construct()
-    {
+    public function __construct(){
         $this->objLoginSvc = new LoginSvc();
     }
-    public function doPost()
-    {
-       // $vjsonLogin = json_decode($_POST['applData']);
-        $vjsonLogin = json_decode(file_get_contents('php://input'));
 
-        $loginStatus = $this->vobjApplSvc->validate($_POST["login"], $_POST["pwd"]);
+    public function doPost(){
+      $url = "http://localhost/";
+      header('Content-Type: text/plain');
+      $vjsnformData = utf8_encode($_POST['formData']); // Don't forget the encoding
+      $vobjlogin = json_decode($vjsnformData);
 
-		if($loginStatus)
-      if($_SESSION['role']==Login::ADMIN)
-			   header("Location: admin-dashboard.html");
-      else
-        header("Location: student-dashboard.html");
-		else
-			header("Location: login.html");
-    }
+        $loginStatus = $this->objLoginSvc->validate($vobjlogin->login, $vobjlogin->pwd);
+
+    		if($loginStatus)
+          if($_SESSION['role']==Login::ADMIN)
+    			   $url .= "admin-dashboard.html";
+          else
+            $url .= "student-dashboard.html";
+    		else
+        	$url .= "login.html";
+
+        echo $url;
+  }
 }
 
-//$appl = new LoginCtl();
-echo "Success";
-  // if($_SERVER['REQUEST_METHOD'] === 'POST')
-  //    $appl->doPost();
+$appl = new LoginCtl();
+
+if($_SERVER['REQUEST_METHOD'] === 'POST')
+   $appl->doPost();
 ?>

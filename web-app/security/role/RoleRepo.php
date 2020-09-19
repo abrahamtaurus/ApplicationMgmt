@@ -1,13 +1,13 @@
 <?php
 include_once 'Role.php';
-include_once  "../../core/dbConnection.php";
+include_once  "../../core/DbConnection.php";
 
 class RoleRepo
 {
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjRole){
 		$vobjRole = $pobjRole;
@@ -36,9 +36,22 @@ class RoleRepo
         return $pobjRole;
     }
 
+    public function getById($roleId){
+        $strSQLStmt="SELECT * FROM tbl_role WHERE id=?";
+        $stmt = $this->dbCon->prepare($strSQLStmt);
+        $stmt->execute([$roleId]);
+        $vresultSet = $stmt->fetch(PDO::FETCH_ASSOC);                // Gets all the table rows as an associative array
+
+       // Create the login object store in an array as JSON
+       if($vresultSet)
+           $vobjRole = new Role($vresultSet["id"], $vresultSet["role_name"]);
+
+        return $vobjRole;
+    }
+
     function __destruct()
     {
-        //dbConnection::closeConnection($this->dbCon);
+        //DbConnection::closeConnection($this->dbCon);
     }
 }
 ?>

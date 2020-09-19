@@ -5,13 +5,13 @@
 */
 <?php
 include_once 'Country.php';
-include_once  "../core/dBConnection.php";
+include_once  "../core/DbConnection.php";
 class CountryRepo
 {
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjCountry){
 		$vobjCountry = $pobjCountry;
@@ -42,7 +42,7 @@ class CountryRepo
 
     function __destruct() 
     {
-        //dbConnection::closeConnection($this->dbCon);
+        //DbConnection::closeConnection($this->dbCon);
     }  
 } 
 ?>

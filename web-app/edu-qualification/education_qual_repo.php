@@ -1,7 +1,7 @@
 <?php
 // Repoclass education
 include 'education_qual.php';
-include_once "dbConnection.php";
+include_once "DbConnection.php";
 class education_qual_repo
 {
 	 private $dbCon; 

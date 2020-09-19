@@ -1,7 +1,7 @@
 <?php
 // Repoclass prev_appl
 include 'prev_appl.php';
-include_once "dbConnection.php";
+include_once "DbConnection.php";
 class repo1
 {
 	 private $dbCon; 

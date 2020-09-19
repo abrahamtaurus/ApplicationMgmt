@@ -1,6 +1,6 @@
 <?php
 //Model or dto
-include "dbConnection.php";
+include "DbConnection.php";
 class prev_appl 
 { 
 	private $id; 

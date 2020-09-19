@@ -1,6 +1,6 @@
 
 <?php
-include "dbconnection.php";
+include "DbConnection.php";
 Class batch
 {
     private $id; 

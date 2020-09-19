@@ -5,13 +5,13 @@
 *Date : 24/08/2020
 **/
 include_once 'Degree.php';
-include_once  "../core/dBConnection.php";
+include_once  "../core/DbConnection.php";
 class DegreeRepo
 {
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjDegree){
 		$vobjDegree = $pobjDegree;
@@ -42,7 +42,7 @@ class DegreeRepo
 
     function __destruct() 
     {
-        //dbConnection::closeConnection($this->dbCon);
+        //DbConnection::closeConnection($this->dbCon);
     }  
 } 
 ?>

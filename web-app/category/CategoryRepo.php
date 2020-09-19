@@ -1,12 +1,12 @@
 <?php
 include_once 'Category.php';
-include_once  "../core/dBConnection.php";
+include_once  $_SERVER['DOCUMENT_ROOT'] . "/web-app/core/DbConnection.php";
 class CategoryRepo
 {
     private $dbCon;
     public function __construct()
     {
-        $this->dbCon = dbConnection::getConnection();
+        $this->dbCon = DbConnection::getConnection();
     }
     public function insert($pobjCategory){
 		$vobjCategory = $pobjCategory;
@@ -17,7 +17,7 @@ class CategoryRepo
         //$stmt->close();
 		return $vobjCategory;
     }
-    
+
     public function update($pobjCategory){
         $strSQLStmt="UPDATE tbl_category SET name=? WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
@@ -27,7 +27,7 @@ class CategoryRepo
     }
 
     public function delete($pobjCategory){
-        $strSQLStart="UPDATE tbl_category SET is_deleted=1 WHERE id=?"; 
+        $strSQLStart="UPDATE tbl_category SET is_deleted=1 WHERE id=?";
         $stmt = $this->dbCon->prepare($strSQLStmt);
         $stmt->execute([$pobjCategory->getId()]);
        // $stmt->close();
@@ -35,9 +35,9 @@ class CategoryRepo
         return $pobjCategory;
     }
 
-    function __destruct() 
+    function __destruct()
     {
-        //dbConnection::closeConnection($this->dbCon);
-    }  
-} 
+        //DbConnection::closeConnection($this->dbCon);
+    }
+}
 ?>
